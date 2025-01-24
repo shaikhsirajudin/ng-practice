@@ -57,3 +57,38 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Upgrading to newer version
+* First of all, you need to uninstall the current angular from your system.
+```
+
+
+npm uninstall -g angular-cli
+npm uninstall --save-dev angular-cli
+npm uninstall -g @angular/cli
+2.Clean up the cache
+
+> npm cache clean
+
+> npm cache clean is renamed as 
+> npm cache verify 
+from npm 5 onwards
+
+3.Install angular globally
+
+npm install -g @angular/cli@latest
+4.Local project setup if you have one
+
+rm -rf node_modules
+npm install --save-dev @angular/cli@latest
+npm install
+
+```
+* Alternative approach using npm-upgrade:
+```
+npm i -g npm-upgrade
+Go to your project folder
+
+npm-upgrade check
+
+```
