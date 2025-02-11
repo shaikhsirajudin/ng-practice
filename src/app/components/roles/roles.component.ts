@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './roles.component.scss'
 })
 export class RolesComponent {
-
+  firstName: string = "John";
+  angularVersion: number = 12;
+  isActive: boolean = true;
+  currentDate: Date = new Date();
 }

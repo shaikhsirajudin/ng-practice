@@ -5712,6 +5712,174 @@ export class AppComponent {
 
 Angular Universal is a server-side rendering (SSR) solution for Angular applications that allows you to render your application on the server and send the fully rendered HTML to the client. This can improve performance, SEO, and user experience by reducing the time to first contentful paint and enabling search engines to crawl and index your application.
 
+---
+## What is SEO in angular
+**SEO (Search Engine Optimization)** in Angular refers to the process of optimizing Angular applications to improve their visibility and ranking on search engine results pages (SERPs). Since Angular is a **Single-Page Application (SPA)** framework, it presents unique challenges for SEO because most of the content is dynamically rendered using JavaScript, which search engines traditionally struggle to crawl and index.
+
+---
+
+## **Why SEO is Challenging in Angular**
+1. **Client-Side Rendering (CSR)**:
+   - By default, Angular applications render content on the client side (in the browser). This means that when a search engine crawls the page, it may only see an empty HTML shell without the dynamically loaded content.
+
+2. **JavaScript Rendering**:
+   - Search engines like Google can execute JavaScript, but they may not do so as efficiently as static HTML. This can lead to incomplete indexing of your content.
+
+3. **Dynamic Content**:
+   - Content loaded dynamically (e.g., via API calls) may not be immediately available for search engines to crawl.
+
+---
+
+## **How to Improve SEO in Angular**
+
+To make Angular applications more SEO-friendly, you can use the following techniques:
+
+---
+
+### **1. Server-Side Rendering (SSR) with Angular Universal**
+- **What it does**: Angular Universal allows you to render Angular applications on the server side, generating static HTML that is sent to the browser. This ensures that search engines can crawl and index your content effectively.
+- **How to implement**:
+  1. Add Angular Universal to your project:
+     ```bash
+     ng add @nguniversal/express-engine
+     ```
+  2. Build and run the server-side application:
+     ```bash
+     npm run build:ssr
+     npm run serve:ssr
+     ```
+- **Benefits**:
+  - Improves page load time by sending pre-rendered HTML to the browser.
+  - Ensures search engines can see the full content of your pages.
+
+---
+
+### **2. Pre-Rendering**
+- **What it does**: Pre-rendering generates static HTML files for specific routes at build time. These files are served to users and search engines.
+- **How to implement**:
+  1. Use a tool like [Prerender.io](https://prerender.io/) or Angular's built-in pre-rendering capabilities.
+  2. Add pre-rendering to your Angular project:
+     ```bash
+     ng run <project-name>:prerender
+     ```
+- **Benefits**:
+  - Simple to implement for static or semi-static content.
+  - Improves SEO for pages that don't change frequently.
+
+---
+
+### **3. Meta Tags and Title Service**
+- **What it does**: Dynamically update meta tags (e.g., `title`, `description`, `og:title`) for each route to improve SEO and social sharing.
+- **How to implement**:
+  Use Angular's `Meta` and `Title` services in your components:
+  ```typescript
+  import { Meta, Title } from '@angular/platform-browser';
+
+  @Component({ ... })
+  export class HomeComponent {
+    constructor(private meta: Meta, private title: Title) {
+      this.title.setTitle('Home Page - My Angular App');
+      this.meta.addTag({ name: 'description', content: 'Welcome to the home page of my Angular app!' });
+    }
+  }
+  ```
+- **Benefits**:
+  - Ensures each page has unique and relevant meta tags for search engines.
+
+---
+
+### **4. Lazy Loading with SEO in Mind**
+- **What it does**: Lazy loading improves performance by loading modules only when needed. However, ensure that lazy-loaded content is accessible to search engines.
+- **How to implement**:
+  Use Angular's `loadChildren` syntax for lazy loading:
+  ```typescript
+  const routes: Routes = [
+    { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) }
+  ];
+  ```
+- **Best Practices**:
+  - Use SSR or pre-rendering to ensure lazy-loaded content is indexed.
+
+---
+
+### **5. Structured Data (Schema.org)**
+- **What it does**: Adds structured data to your pages to help search engines understand your content better (e.g., articles, products, events).
+- **How to implement**:
+  Add JSON-LD script to your component templates:
+  ```html
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "My Angular Article",
+    "description": "Learn how to improve SEO in Angular."
+  }
+  </script>
+  ```
+- **Benefits**:
+  - Enhances search engine understanding of your content.
+  - Can lead to rich snippets in search results.
+
+---
+
+### **6. Canonical URLs**
+- **What it does**: Prevents duplicate content issues by specifying the canonical URL for each page.
+- **How to implement**:
+  Add a canonical link tag to your `index.html` or dynamically in your components:
+  ```html
+  <link rel="canonical" href="https://example.com/about" />
+  ```
+- **Benefits**:
+  - Helps search engines identify the preferred version of a page.
+
+---
+
+### **7. Optimize Performance**
+- **What it does**: Improves page load speed, which is a ranking factor for search engines.
+- **How to implement**:
+  - Use lazy loading for modules.
+  - Enable compression (e.g., gzip) for your server.
+  - Optimize images and use modern formats like WebP.
+  - Minimize and bundle your JavaScript and CSS files.
+
+---
+
+### **8. Use a Sitemap**
+- **What it does**: A sitemap helps search engines discover and index your pages.
+- **How to implement**:
+  - Generate a sitemap using a tool like [sitemap-generator](https://www.npmjs.com/package/sitemap-generator).
+  - Submit the sitemap to search engines via their webmaster tools (e.g., Google Search Console).
+
+---
+
+### **9. Use Robots.txt**
+- **What it does**: Controls which pages search engines can crawl.
+- **How to implement**:
+  Create a `robots.txt` file in your `src/assets` folder:
+  ```txt
+  User-agent: *
+  Allow: /
+  Disallow: /admin
+  ```
+- **Benefits**:
+  - Prevents search engines from crawling sensitive or irrelevant pages.
+
+---
+
+### **10. Monitor SEO with Tools**
+- Use tools like **Google Search Console**, **Google Analytics**, and **Lighthouse** to monitor and improve your Angular app's SEO performance.
+- Regularly check for crawl errors, indexing issues, and performance metrics.
+
+---
+
+## **Key Takeaways**
+- **Server-Side Rendering (SSR)** with Angular Universal is the most effective way to improve SEO in Angular.
+- Use **meta tags**, **structured data**, and **canonical URLs** to enhance search engine understanding of your content.
+- Optimize performance and ensure your app is crawlable by search engines.
+- Regularly monitor and refine your SEO strategy using tools like Google Search Console.
+
+
+
 ### Creating an Angular Universal application
 
 To create an Angular Universal application, you can use the Angular CLI to generate a new project with the Universal schematic.
@@ -10399,5 +10567,663 @@ export class AppComponent implements OnInit {
   }
 }
 ```
+
+---
+### Key Concepts in Angular Routing
+
+Angular routing is a powerful feature that enables navigation between different views or components in a single-page application (SPA) without reloading the entire page. Below are the **key concepts in Angular routing** that every developer should understand:
+
+---
+
+### **1. Routes Configuration**
+- The `Routes` array defines the mapping between URLs and components.
+- Each route is an object with properties like `path`, `component`, `children`, `redirectTo`, and more.
+- Example:
+  ```typescript
+  const routes: Routes = [
+    { path: 'home', component: HomeComponent },
+    { path: 'about', component: AboutComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default route
+    { path: '**', component: NotFoundComponent } // Wildcard route for 404
+  ];
+  ```
+
+---
+
+### **2. Router Outlet**
+- The `<router-outlet>` directive acts as a placeholder where the routed component is rendered.
+- Example:
+  ```html
+  <router-outlet></router-outlet>
+  ```
+
+---
+
+### **3. Router Module**
+- The `RouterModule` is used to configure and enable routing in an Angular application.
+- Use `RouterModule.forRoot(routes)` in the root module and `RouterModule.forChild(routes)` in feature modules.
+- Example:
+  ```typescript
+  @NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule {}
+  ```
+
+---
+
+### **4. Navigation**
+- **Declarative Navigation**: Use the `routerLink` directive in templates to navigate.
+  ```html
+  <a routerLink="/home">Home</a>
+  <a [routerLink]="['/about', userId]">About</a>
+  ```
+- **Programmatic Navigation**: Use the `Router` service to navigate in code.
+  ```typescript
+  constructor(private router: Router) {}
+  navigateToAbout() {
+    this.router.navigate(['/about']);
+  }
+  ```
+
+---
+
+### **5. Route Parameters**
+- Routes can accept dynamic parameters (e.g., `:id`).
+- Access parameters in the component using `ActivatedRoute`.
+- Example:
+  ```typescript
+  { path: 'detail/:id', component: DetailComponent }
+  ```
+  ```typescript
+  constructor(private route: ActivatedRoute) {}
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      console.log(params['id']); // Access the 'id' parameter
+    });
+  }
+  ```
+
+---
+
+### **6. Query Parameters**
+- Pass optional query parameters in the URL (e.g., `?page=1`).
+- Access query parameters using `ActivatedRoute`.
+- Example:
+  ```typescript
+  this.router.navigate(['/search'], { queryParams: { page: 1 } });
+  ```
+  ```typescript
+  this.route.queryParams.subscribe(params => {
+    console.log(params['page']); // Access the 'page' query parameter
+  });
+  ```
+
+---
+
+### **7. Route Guards**
+- Route guards control whether a user can navigate to or away from a route.
+- Types of guards:
+  - `CanActivate`: Controls access to a route.
+  - `CanActivateChild`: Controls access to child routes.
+  - `CanDeactivate`: Controls whether a user can leave a route (e.g., to prevent unsaved changes).
+  - `CanLoad`: Controls whether a lazy-loaded module can be loaded.
+- Example:
+  ```typescript
+  @Injectable({ providedIn: 'root' })
+  export class AuthGuard implements CanActivate {
+    canActivate(): boolean {
+      return this.authService.isLoggedIn();
+    }
+  }
+  ```
+  ```typescript
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
+  ```
+
+---
+
+### **8. Lazy Loading**
+- Lazy loading improves performance by loading feature modules only when needed.
+- Use the `loadChildren` property to lazy-load a module.
+- Example:
+  ```typescript
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
+  ```
+
+---
+
+### **9. Nested Routes (Child Routes)**
+- Routes can have child routes, enabling nested views.
+- Use the `children` property to define child routes.
+- Example:
+  ```typescript
+  {
+    path: 'user',
+    component: UserComponent,
+    children: [
+      { path: 'profile', component: ProfileComponent },
+      { path: 'settings', component: SettingsComponent }
+    ]
+  }
+  ```
+
+---
+
+### **10. Wildcard Route**
+- A wildcard route (`**`) is used to handle unknown paths (e.g., 404 pages).
+- Example:
+  ```typescript
+  { path: '**', component: NotFoundComponent }
+  ```
+
+---
+
+### **11. Router Events**
+- The router emits events during the navigation cycle (e.g., `NavigationStart`, `NavigationEnd`).
+- Subscribe to `Router.events` to track navigation.
+- Example:
+  ```typescript
+  this.router.events.subscribe(event => {
+    if (event instanceof NavigationStart) {
+      console.log('Navigation started');
+    }
+    if (event instanceof NavigationEnd) {
+      console.log('Navigation ended');
+    }
+  });
+  ```
+
+---
+
+### **12. Route Resolvers**
+- Route resolvers fetch data before activating a route.
+- Use the `resolve` property to define a resolver.
+- Example:
+  ```typescript
+  @Injectable({ providedIn: 'root' })
+  export class DataResolver implements Resolve<any> {
+    resolve(route: ActivatedRouteSnapshot): Observable<any> {
+      return this.dataService.getData();
+    }
+  }
+  ```
+  ```typescript
+  { path: 'data', component: DataComponent, resolve: { data: DataResolver } }
+  ```
+
+---
+
+### **13. Relative Navigation**
+- Navigate relative to the current route using `relativeTo`.
+- Example:
+  ```typescript
+  this.router.navigate(['../details'], { relativeTo: this.route });
+  ```
+
+---
+
+### **14. Router State**
+- The `RouterState` represents the state of the router at any point in time.
+- Access the current route and its parameters using `Router.routerState`.
+- Example:
+  ```typescript
+  const currentRoute = this.router.routerState.snapshot.root;
+  ```
+
+---
+
+### **15. Scroll Position Restoration**
+- The router can restore the scroll position after navigation.
+- Enable it in the router configuration:
+  ```typescript
+  RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })
+  ```
+
+---
+
+### **16. Route Reuse Strategy**
+- Customize how routes are reused using the `RouteReuseStrategy` interface.
+- Useful for optimizing performance in complex applications.
+
+---
+
+### **17. Router Testing**
+- Use Angular's testing utilities to test routing behavior.
+- Example:
+  ```typescript
+  TestBed.configureTestingModule({
+    imports: [RouterTestingModule.withRoutes(routes)]
+  });
+  ```
+
+---
+### Explain the different types of data binding in Angular?
+
+Angular provides several ways to bind data between the component class and the template. These binding techniques enable communication between the TypeScript code (component logic) and the HTML template (view). Below is a detailed explanation of the **different types of data binding in Angular**:
+
+---
+
+## **1. Interpolation (`{{ }}`)**
+- **Purpose**: Used to display dynamic data in the template.
+- **Syntax**: `{{ expression }}`
+- **Direction**: One-way (component to view).
+- **Use Case**: Displaying component properties, method results, or expressions in the view.
+
+### Example:
+```typescript
+// Component class
+export class AppComponent {
+  title = 'Angular Interpolation';
+}
+```
+```html
+<!-- Template -->
+<h1>{{ title }}</h1>
+<p>2 + 2 = {{ 2 + 2 }}</p>
+```
+Output:
+```html
+<h1>Angular Interpolation</h1>
+<p>2 + 2 = 4</p>
+```
+
+---
+
+## **2. Property Binding (`[ ]`)**
+- **Purpose**: Binds a component property to an HTML element property or attribute.
+- **Syntax**: `[property]="expression"`
+- **Direction**: One-way (component to view).
+- **Use Case**: Setting values for HTML element properties (e.g., `src`, `disabled`, `class`, etc.).
+
+### Example:
+```typescript
+// Component class
+export class AppComponent {
+  imageUrl = 'https://example.com/image.png';
+  isDisabled = true;
+}
+```
+```html
+<!-- Template -->
+<img [src]="imageUrl" [alt]="'Example Image'">
+<button [disabled]="isDisabled">Click Me</button>
+```
+- The `src` attribute of the `<img>` tag is bound to the `imageUrl` property.
+- The `disabled` attribute of the `<button>` tag is bound to the `isDisabled` property.
+
+---
+
+## **3. Event Binding (`( )`)**
+- **Purpose**: Binds a component method to a DOM event (e.g., `click`, `input`, `keyup`, etc.).
+- **Syntax**: `(event)="method()"`
+- **Direction**: One-way (view to component).
+- **Use Case**: Handling user interactions like button clicks, form submissions, etc.
+
+### Example:
+```typescript
+// Component class
+export class AppComponent {
+  onClick() {
+    alert('Button clicked!');
+  }
+}
+```
+```html
+<!-- Template -->
+<button (click)="onClick()">Click Me</button>
+```
+- When the button is clicked, the `onClick()` method in the component is executed.
+
+---
+
+## **4. Two-Way Binding (`[( )]`)**
+- **Purpose**: Combines property binding and event binding to synchronize data between the component and the view.
+- **Syntax**: `[(ngModel)]="property"`
+- **Direction**: Two-way (component ⇄ view).
+- **Use Case**: Commonly used with form inputs to keep the component property and the view in sync.
+
+### Example:
+```typescript
+// Component class
+export class AppComponent {
+  name = '';
+}
+```
+```html
+<!-- Template -->
+<input [(ngModel)]="name" placeholder="Enter your name">
+<p>Hello, {{ name }}!</p>
+```
+- When the user types in the input field, the `name` property in the component is updated.
+- The `<p>` tag displays the updated value of `name`.
+
+**Note**: To use `ngModel`, you must import `FormsModule` in your Angular module.
+
+---
+
+## **5. Attribute Binding (`attr.`)**
+- **Purpose**: Binds a component property to an HTML attribute (used when the attribute is not a property of the DOM element).
+- **Syntax**: `[attr.attribute]="expression"`
+- **Direction**: One-way (component to view).
+- **Use Case**: Setting attributes like `aria-*`, `colspan`, `data-*`, etc.
+
+### Example:
+```typescript
+// Component class
+export class AppComponent {
+  colSpan = 2;
+}
+```
+```html
+<!-- Template -->
+<td [attr.colspan]="colSpan">Table Cell</td>
+```
+- The `colspan` attribute of the `<td>` element is bound to the `colSpan` property.
+
+---
+
+## **6. Class Binding (`[class]`)**
+- **Purpose**: Dynamically add or remove CSS classes based on component properties.
+- **Syntax**:
+  - Single class: `[class.class-name]="expression"`
+  - Multiple classes: `[class]="classExpression"`
+- **Direction**: One-way (component to view).
+- **Use Case**: Conditionally applying CSS classes.
+
+### Example:
+```typescript
+// Component class
+export class AppComponent {
+  isActive = true;
+}
+```
+```html
+<!-- Template -->
+<div [class.active]="isActive">This is a div</div>
+```
+- If `isActive` is `true`, the `active` class is added to the `<div>`.
+
+---
+
+## **7. Style Binding (`[style]`)**
+- **Purpose**: Dynamically set inline styles based on component properties.
+- **Syntax**:
+  - Single style: `[style.style-property]="expression"`
+  - Multiple styles: `[style]="styleExpression"`
+- **Direction**: One-way (component to view).
+- **Use Case**: Conditionally applying inline styles.
+
+### Example:
+```typescript
+// Component class
+export class AppComponent {
+  fontSize = '20px';
+}
+```
+```html
+<!-- Template -->
+<p [style.font-size]="fontSize">This is a paragraph</p>
+```
+- The `font-size` style of the `<p>` element is bound to the `fontSize` property.
+
+---
+
+## **8. Template Reference Variables (`#`)**
+- **Purpose**: Creates a reference to a DOM element or Angular component/directive in the template.
+- **Syntax**: `#variableName`
+- **Use Case**: Accessing DOM elements or Angular components directly in the template.
+
+### Example:
+```html
+<!-- Template -->
+<input #inputRef placeholder="Enter text">
+<button (click)="logValue(inputRef.value)">Log Value</button>
+```
+```typescript
+// Component class
+export class AppComponent {
+  logValue(value: string) {
+    console.log(value);
+  }
+}
+```
+- `#inputRef` creates a reference to the `<input>` element.
+- The `logValue()` method logs the value of the input when the button is clicked.
+
+---
+
+## **9. Structural Directives (`*`)**
+- **Purpose**: Modify the DOM structure by adding or removing elements.
+- **Syntax**: `*directive="expression"`
+- **Use Case**: Conditionally rendering elements or iterating over lists.
+
+### Examples:
+#### `*ngIf`:
+```html
+<div *ngIf="isVisible">This is visible</div>
+```
+- The `<div>` is rendered only if `isVisible` is `true`.
+
+#### `*ngFor`:
+```html
+<ul>
+  <li *ngFor="let item of items">{{ item }}</li>
+</ul>
+```
+- The `<li>` element is repeated for each item in the `items` array.
+
+---
+
+## **Summary of Binding Types**
+| Binding Type         | Syntax                | Direction          | Use Case                                      |
+|----------------------|-----------------------|--------------------|----------------------------------------------|
+| Interpolation         | `{{ expression }}`    | Component → View   | Display dynamic data in the view.            |
+| Property Binding      | `[property]="expr"`   | Component → View   | Bind component data to HTML properties.      |
+| Event Binding         | `(event)="method()"`  | View → Component   | Handle user interactions.                    |
+| Two-Way Binding       | `[(ngModel)]="prop"`  | Component ⇄ View   | Synchronize data between component and view. |
+| Attribute Binding     | `[attr.attribute]`    | Component → View   | Bind to HTML attributes.                    |
+| Class Binding         | `[class.class-name]`  | Component → View   | Dynamically add/remove CSS classes.          |
+| Style Binding         | `[style.style-prop]`  | Component → View   | Dynamically set inline styles.               |
+| Template Reference    | `#variableName`       | N/A                | Reference DOM elements or components.        |
+| Structural Directives | `*directive="expr"`   | N/A                | Modify DOM structure conditionally.          |
+
+---
+
+### The one-way binding and two-way binding in angular?
+In Angular, data binding is a powerful feature that allows you to connect the component class (TypeScript) with the template (HTML). There are two main types of data binding: **one-way binding** and **two-way binding**. Below are examples of each type:
+
+---
+
+## **One-Way Binding**
+One-way binding means data flows in a single direction, either from the component to the view or from the view to the component.
+
+### **1. Component to View (One-Way)**
+#### a. **Interpolation (`{{ }}`)**:
+- Displays component data in the view.
+```typescript
+// Component class
+export class AppComponent {
+  message = 'Hello, Angular!';
+}
+```
+```html
+<!-- Template -->
+<p>{{ message }}</p>
+```
+Output:
+```html
+<p>Hello, Angular!</p>
+```
+
+#### b. **Property Binding (`[ ]`)**:
+- Binds component data to an HTML element property.
+```typescript
+// Component class
+export class AppComponent {
+  imageUrl = 'https://example.com/image.png';
+}
+```
+```html
+<!-- Template -->
+<img [src]="imageUrl" alt="Example Image">
+```
+- The `src` attribute of the `<img>` tag is bound to the `imageUrl` property.
+
+#### c. **Attribute Binding (`[attr.]`)**:
+- Binds component data to an HTML attribute.
+```typescript
+// Component class
+export class AppComponent {
+  colSpan = 2;
+}
+```
+```html
+<!-- Template -->
+<td [attr.colspan]="colSpan">Table Cell</td>
+```
+- The `colspan` attribute of the `<td>` element is bound to the `colSpan` property.
+
+#### d. **Class Binding (`[class]`)**:
+- Dynamically adds or removes CSS classes.
+```typescript
+// Component class
+export class AppComponent {
+  isActive = true;
+}
+```
+```html
+<!-- Template -->
+<div [class.active]="isActive">This is a div</div>
+```
+- If `isActive` is `true`, the `active` class is added to the `<div>`.
+
+#### e. **Style Binding (`[style]`)**:
+- Dynamically sets inline styles.
+```typescript
+// Component class
+export class AppComponent {
+  fontSize = '20px';
+}
+```
+```html
+<!-- Template -->
+<p [style.font-size]="fontSize">This is a paragraph</p>
+```
+- The `font-size` style of the `<p>` element is bound to the `fontSize` property.
+
+---
+
+### **2. View to Component (One-Way)**
+#### a. **Event Binding (`( )`)**:
+- Binds a component method to a DOM event.
+```typescript
+// Component class
+export class AppComponent {
+  onClick() {
+    alert('Button clicked!');
+  }
+}
+```
+```html
+<!-- Template -->
+<button (click)="onClick()">Click Me</button>
+```
+- When the button is clicked, the `onClick()` method is executed.
+
+#### b. **Template Reference Variables (`#`)**:
+- Accesses DOM elements or Angular components directly in the template.
+```html
+<!-- Template -->
+<input #inputRef placeholder="Enter text">
+<button (click)="logValue(inputRef.value)">Log Value</button>
+```
+```typescript
+// Component class
+export class AppComponent {
+  logValue(value: string) {
+    console.log(value);
+  }
+}
+```
+- `#inputRef` creates a reference to the `<input>` element.
+- The `logValue()` method logs the value of the input when the button is clicked.
+
+---
+
+## **Two-Way Binding**
+Two-way binding allows data to flow in both directions: from the component to the view and from the view to the component. It is commonly used with form inputs.
+
+### **1. Two-Way Binding (`[( )]`)**:
+- Combines property binding and event binding.
+- Requires the `FormsModule` to be imported.
+
+#### Example:
+```typescript
+// Component class
+export class AppComponent {
+  name = '';
+}
+```
+```html
+<!-- Template -->
+<input [(ngModel)]="name" placeholder="Enter your name">
+<p>Hello, {{ name }}!</p>
+```
+- When the user types in the input field, the `name` property in the component is updated.
+- The `<p>` tag displays the updated value of `name`.
+
+#### **How It Works**:
+- `[(ngModel)]` is shorthand for:
+  ```html
+  <input [ngModel]="name" (ngModelChange)="name = $event">
+  ```
+  - `[ngModel]`: Binds the `name` property to the input value (component to view).
+  - `(ngModelChange)`: Updates the `name` property when the input value changes (view to component).
+
+---
+
+## **Summary of Examples**
+
+### **One-Way Binding (Component → View)**:
+1. **Interpolation**:
+   ```html
+   <p>{{ message }}</p>
+   ```
+2. **Property Binding**:
+   ```html
+   <img [src]="imageUrl">
+   ```
+3. **Attribute Binding**:
+   ```html
+   <td [attr.colspan]="colSpan"></td>
+   ```
+4. **Class Binding**:
+   ```html
+   <div [class.active]="isActive"></div>
+   ```
+5. **Style Binding**:
+   ```html
+   <p [style.font-size]="fontSize"></p>
+   ```
+
+### **One-Way Binding (View → Component)**:
+1. **Event Binding**:
+   ```html
+   <button (click)="onClick()">Click Me</button>
+   ```
+2. **Template Reference Variables**:
+   ```html
+   <input #inputRef>
+   <button (click)="logValue(inputRef.value)">Log Value</button>
+   ```
+
+### **Two-Way Binding**:
+1. **Two-Way Binding with `ngModel`**:
+   ```html
+   <input [(ngModel)]="name">
+   <p>Hello, {{ name }}!</p>
+   ```
 
 ---
