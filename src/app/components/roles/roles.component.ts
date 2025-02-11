@@ -12,4 +12,5 @@ export class RolesComponent {
   angularVersion: number = 12;
   isActive: boolean = true;
   currentDate: Date = new Date();
+  inputType: string = "radio";
 }
