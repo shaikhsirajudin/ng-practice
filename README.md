@@ -288,7 +288,7 @@ This repository contains a list of resources to learn Angular. It includes tutor
 
 [Back to top⤴️](#table-of-contents)
 
-### Explain in details different version of angular and there features
+### Explain in details all angular version and their features
 Angular is a popular open-source web application framework maintained by Google and a community of developers. It is widely used for building dynamic, single-page applications (SPAs). Over the years, Angular has gone through several major versions, each introducing new features, improvements, and breaking changes. Below is a detailed explanation of the major versions of Angular and their key features:
 
 ---
