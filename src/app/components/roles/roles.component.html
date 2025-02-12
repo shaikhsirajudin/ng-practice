@@ -9,17 +9,44 @@
         </div>
         <div class="col-3">
             <p>{{currentDate}}</p>
-        </div>
+        </div>        
     </div>
     <div class="row">
         <div class="col-3">
-           <input type="text" class="form-control" [value]="firstName" placeholder="Enter First Name">
+         One way data binding  <input type="text" class="form-control" [value]="firstName" placeholder="Enter First Name">
         </div>
         <div class="col-3">
         <input [type]="inputType" placeholder="Custom Control">
         </div>
         <div class="col-3">
-            <p>{{currentDate}}</p>
+      Two way data binding  <input type="text" class="form-control" [(ngModel)]="firstName" placeholder="Enter First Name">
+        
+                    </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            Role:{{selectedRole}}
+        </div>
+        <div class="col-3">
+          
+        </div>
+        <div class="col-3">         
+            Select New role: <select [(ngModel)]="selectedRole">
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+                <option value="Guest">Guest</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+           Event Binding: <button class="btn btn-success" (click)="showAlert()">Show Alert</button>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-success" (click)="showAlertMessage(firstName)">Show Alert</button>
+        </div>
+        <div class="col-3">
+            <button class="btn btn-success" (click)="showAlertMessage(selectedRole)">Show Alert</button>
         </div>
     </div>
 </div>
