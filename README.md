@@ -102,6 +102,7 @@ This repository contains a list of resources to learn Angular. It includes tutor
 - [Introduction](#introduction)
   - [Features of Angular](#features-of-angular)
   - [Difference between AngularJS vs Angular](#difference-between-angularjs-vs-angular)
+  - [Explain in details different version of angular and there features](#Explain-in-details-different-version-of-angular-and-there-features)
   - [Angular vs React](#angular-vs-react)
 - [Roadmap](#roadmap)
 - [Configuration](#configuration)
