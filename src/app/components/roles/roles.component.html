@@ -31,10 +31,8 @@
           
         </div>
         <div class="col-3">         
-            Select New role: <select [(ngModel)]="selectedRole">
-                <option value="Admin">Admin</option>
-                <option value="User">User</option>
-                <option value="Guest">Guest</option>
+            Select New role: <select [(ngModel)]="selectedRole"  >
+                <option *ngFor="let item of users" [value]="item.userId">{{item.role}}</option>                
             </select>
         </div>
     </div>

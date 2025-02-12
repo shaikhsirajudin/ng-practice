@@ -1280,6 +1280,117 @@ export class AppComponent {
 
 Controls how styles are applied to components. By default, Angular uses Emulated View Encapsulation, scoping styles to the component.
 
+View Encapsulation in Angular is a mechanism to control how styles are applied to components and their descendants. There are three main modes of View Encapsulation in Angular: `Emulated`, `ShadowDom`, and `None`. Let's explore each in detail:
+
+### **1. Emulated (Default Mode)**
+**How it works**:
+- **Emulated** encapsulation emulates the behavior of Shadow DOM by adding unique attribute selectors to styles and elements.
+- This mode ensures that styles defined in a component's styles are scoped to that component alone and do not affect other components.
+
+**Implementation**:
+```typescript
+@Component({
+  selector: 'app-example',
+  templateUrl: './example.component.html',
+  styleUrls: ['./example.component.css'],
+  encapsulation: ViewEncapsulation.Emulated
+})
+export class ExampleComponent {}
+```
+
+**Example**:
+- **CSS**:
+  ```css
+  .example {
+    background-color: blue;
+  }
+  ```
+- **HTML**:
+  ```html
+  <div class="example">This is an example component.</div>
+  ```
+- **Generated HTML**:
+  ```html
+  <div class="example _ngcontent-c0">This is an example component.</div>
+  ```
+
+### **2. ShadowDom**
+**How it works**:
+- **ShadowDom** encapsulation uses the native Shadow DOM to encapsulate styles within the component.
+- This mode ensures complete style isolation, meaning styles defined in a component do not leak out to other components and vice versa.
+
+**Implementation**:
+```typescript
+@Component({
+  selector: 'app-example',
+  templateUrl: './example.component.html',
+  styleUrls: ['./example.component.css'],
+  encapsulation: ViewEncapsulation.ShadowDom
+})
+export class ExampleComponent {}
+```
+
+**Example**:
+- **CSS**:
+  ```css
+  .example {
+    background-color: blue;
+  }
+  ```
+- **HTML**:
+  ```html
+  <div class="example">This is an example component.</div>
+  ```
+- **Generated HTML**:
+  ```html
+  <div class="example" shadow-root="open">This is an example component.</div>
+  ```
+
+### **3. None**
+**How it works**:
+- **None** encapsulation does not provide any style encapsulation.
+- Styles defined in the component are global and can affect other components, while styles from other components can also affect this component.
+
+**Implementation**:
+```typescript
+@Component({
+  selector: 'app-example',
+  templateUrl: './example.component.html',
+  styleUrls: ['./example.component.css'],
+  encapsulation: ViewEncapsulation.None
+})
+export class ExampleComponent {}
+```
+
+**Example**:
+- **CSS**:
+  ```css
+  .example {
+    background-color: blue;
+  }
+  ```
+- **HTML**:
+  ```html
+  <div class="example">This is an example component.</div>
+  ```
+- **Generated HTML**:
+  ```html
+  <div class="example">This is an example component.</div>
+  ```
+
+### **Comparison**
+| Mode      | Style Scope       | CSS Isolation | Browser Support |
+|-----------|-------------------|---------------|-----------------|
+| Emulated  | Component-only    | Partial       | All browsers    |
+| ShadowDom | Component-only    | Full          | Modern browsers |
+| None      | Global            | None          | All browsers    |
+
+Each mode has its use case:
+- **Emulated** is great for most scenarios, providing a balance between style isolation and browser compatibility.
+- **ShadowDom** is perfect for advanced scenarios where complete style encapsulation is required.
+- **None** can be useful for legacy projects or specific cases where global styles are preferred.
+
+
 ### Emulated View Encapsulation
 
 Default mode in Angular, emulating shadow DOM to scope styles to the component.
@@ -12042,3 +12153,505 @@ export class AriaLabelDirective {
 
 3. **Accessibility Directives**:
    - Enhance accessibility by dynamically adding ARIA attributes.
+
+   ### How to call rest api in angular using providers/standalone components
+   In **Angular 18**, you can call a **REST API** using the `providers` array in different ways, such as providing `HttpClient` at different levels (e.g., in `AppModule`, `main.ts`, or a standalone component). Below are different methods to achieve this:
+
+---
+
+## **Method 1: Using `providers` in `main.ts` (Recommended)**
+Instead of importing `HttpClientModule`, use `provideHttpClient()` in `providers`.
+
+### 📌 **Step 1: Configure `main.ts`**
+Modify `main.ts` to include `provideHttpClient()`:
+
+```typescript
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
+
+bootstrapApplication(AppComponent, {
+  providers: [provideHttpClient()] // Providing HttpClient globally
+}).catch(err => console.error(err));
+```
+
+### 📌 **Step 2: Create API Service**
+Generate an API service:
+
+```sh
+ng generate service api
+```
+
+Then, modify `api.service.ts`:
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root', // Available throughout the app
+})
+export class ApiService {
+  private apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+  constructor(private http: HttpClient) {}
+
+  // GET Request
+  getPosts(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
+}
+```
+
+### 📌 **Step 3: Inject Service in Component**
+Modify `app.component.ts` to fetch API data:
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from './api.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+  posts: any[] = [];
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.apiService.getPosts().subscribe(
+      (data) => {
+        this.posts = data;
+      },
+      (error) => {
+        console.error('Error fetching posts', error);
+      }
+    );
+  }
+}
+```
+
+### 📌 **Step 4: Display Data in HTML**
+Modify `app.component.html`:
+
+```html
+<h1>Posts</h1>
+<ul>
+  <li *ngFor="let post of posts">
+    <strong>{{ post.title }}</strong>
+    <p>{{ post.body }}</p>
+  </li>
+</ul>
+```
+
+✅ **Run the application**:
+
+```sh
+ng serve
+```
+
+---
+
+## **Method 2: Using `providers` in AppModule (Traditional)**
+This method uses `HttpClientModule` inside `AppModule`.
+
+### 📌 **Step 1: Modify `app.module.ts`**
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule], // Import HttpClientModule
+  providers: [HttpClient], // Provide HttpClient here
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+💡 The rest of the setup remains the same (`ApiService`, `AppComponent`, and HTML).
+
+---
+
+## **Method 3: Providing `HttpClient` at Component Level**
+You can also provide `HttpClient` inside a standalone component.
+
+### 📌 **Step 1: Modify `app.component.ts`**
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from './api.service';
+import { provideHttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  providers: [provideHttpClient()], // Providing HttpClient at component level
+})
+export class AppComponent implements OnInit {
+  posts: any[] = [];
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.apiService.getPosts().subscribe(
+      (data) => {
+        this.posts = data;
+      },
+      (error) => {
+        console.error('Error fetching posts', error);
+      }
+    );
+  }
+}
+```
+
+✅ This approach is useful when `HttpClient` is only needed in specific components.
+
+---
+
+## **Comparison of Methods**
+| Method | Where `HttpClient` is Provided | Recommended for |
+|--------|--------------------------------|-----------------|
+| **1. `provideHttpClient()` in `main.ts`** | Globally in `main.ts` | **Modern Angular projects** ✅ |
+| **2. `providers: [HttpClient]` in `AppModule`** | In `app.module.ts` | Traditional apps |
+| **3. `providers` in `@Component()`** | Only for the specific component | Isolated usage |
+
+---
+
+## **Summary**
+- ✅ **Recommended:** Use `provideHttpClient()` in `main.ts` for better **tree-shaking and performance**.
+- ✅ Use `providers: [HttpClient]` in `AppModule` for **traditional apps**.
+- ✅ Provide `HttpClient` **at the component level** if it's needed **only in that component**.
+---
+###  How to call rest api in angular with appmodule?
+
+In **Angular 18**, calling a **REST API** within `AppModule` follows a structured approach using `HttpClientModule`. Here’s how you can do it step by step.
+
+---
+
+### **1. Import HttpClientModule in AppModule**
+First, ensure you import `HttpClientModule` in your **AppModule (`app.module.ts`)**.
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, HttpClientModule], // Add HttpClientModule here
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+---
+
+### **2. Create a Service to Handle API Calls**
+Create an Angular service using the CLI:
+
+```sh
+ng generate service api
+```
+
+This will create `api.service.ts` inside the `src/app` folder.
+
+Now, update the service to make HTTP requests:
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root', // Makes the service available throughout the app
+})
+export class ApiService {
+  private apiUrl = 'https://jsonplaceholder.typicode.com/posts'; // Example API
+
+  constructor(private http: HttpClient) {}
+
+  // GET Request
+  getPosts(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
+
+  // POST Request
+  createPost(postData: any): Observable<any> {
+    return this.http.post(this.apiUrl, postData);
+  }
+
+  // PUT Request
+  updatePost(id: number, postData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, postData);
+  }
+
+  // DELETE Request
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+}
+```
+
+---
+
+### **3. Inject and Use the Service in AppComponent**
+Modify `app.component.ts` to use the service and fetch data.
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from './api.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+  posts: any[] = [];
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit() {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.apiService.getPosts().subscribe(
+      (data) => {
+        this.posts = data;
+      },
+      (error) => {
+        console.error('Error fetching posts', error);
+      }
+    );
+  }
+}
+```
+
+---
+
+### **4. Display API Data in HTML**
+Modify `app.component.html` to display the API response.
+
+```html
+<h1>Posts</h1>
+<ul>
+  <li *ngFor="let post of posts">
+    <strong>{{ post.title }}</strong>
+    <p>{{ post.body }}</p>
+  </li>
+</ul>
+```
+
+---
+
+### **5. Run and Test**
+Start your Angular app using:
+
+```sh
+ng serve
+```
+
+You should see the API data displayed in the browser.
+
+---
+
+### **Summary**
+✅ **Imported `HttpClientModule`** in `AppModule`.  
+✅ **Created `ApiService`** to handle API requests.  
+✅ **Injected and used the service** in `AppComponent`.  
+✅ **Displayed the API data** in the HTML file.  
+
+### How to fix  CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+The **CORS (Cross-Origin Resource Sharing)** error occurs when a web application running at one origin (domain) tries to make a request to a server at a different origin, and the server does not allow the request due to missing or incorrect CORS headers.
+
+To fix the **CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource** error in Angular, you can use one of the following approaches:
+
+---
+
+### 1. **Fix CORS on the Server-Side (Recommended)**
+The best and most secure way to resolve CORS issues is to configure the server to allow requests from your Angular application's origin.
+
+#### Steps:
+1. **Add CORS Headers on the Server**:
+   - If you control the server, configure it to include the `Access-Control-Allow-Origin` header in the response.
+   - For example, in a Node.js/Express server:
+     ```javascript
+     const express = require('express');
+     const cors = require('cors'); // Use the cors middleware
+     const app = express();
+
+     // Allow requests from your Angular app's origin
+     app.use(cors({
+       origin: 'http://localhost:4200', // Replace with your Angular app's URL
+     }));
+
+     app.get('/api/data', (req, res) => {
+       res.json({ message: 'Hello from the server!' });
+     });
+
+     app.listen(3000, () => {
+       console.log('Server is running on port 3000');
+     });
+     ```
+
+2. **Allow All Origins (Not Recommended for Production)**:
+   - If you want to allow requests from any origin (not recommended for production):
+     ```javascript
+     app.use(cors()); // Allow all origins
+     ```
+
+3. **Set Specific Headers**:
+   - If you need to allow specific HTTP methods or headers:
+     ```javascript
+     app.use(cors({
+       origin: 'http://localhost:4200',
+       methods: ['GET', 'POST', 'PUT', 'DELETE'],
+       allowedHeaders: ['Content-Type', 'Authorization'],
+     }));
+     ```
+
+---
+
+### 2. **Use a Proxy in Angular (Development Only)**
+If you cannot modify the server, you can set up a **proxy** in your Angular application during development. This avoids CORS issues by making the API requests appear to come from the same origin as your Angular app.
+
+#### Steps:
+1. **Create a Proxy Configuration File**:
+   - Create a file named `proxy.conf.json` in the root of your Angular project:
+     ```json
+     {
+       "/api": {
+         "target": "http://your-api-server.com",
+         "secure": false,
+         "changeOrigin": true
+       }
+     }
+     ```
+   - Replace `http://your-api-server.com` with the base URL of your API.
+
+2. **Update `angular.json` to Use the Proxy**:
+   - Modify the `serve` options in `angular.json` to use the proxy configuration:
+     ```json
+     "architect": {
+       "serve": {
+         "options": {
+           "proxyConfig": "src/proxy.conf.json"
+         }
+       }
+     }
+     ```
+
+3. **Use Relative URLs in Your Angular Service**:
+   - Update your API calls to use relative URLs (without the domain):
+     ```typescript
+     // Example: Use /api instead of http://your-api-server.com/api
+     this.http.get('/api/data').subscribe((data) => {
+       console.log(data);
+     });
+     ```
+
+4. **Restart the Angular Development Server**:
+   - Restart the server for the proxy configuration to take effect:
+     ```bash
+     ng serve
+     ```
+
+---
+
+### 3. **Disable CORS in the Browser (Temporary Workaround)**
+This is **not recommended** for production but can be used for local development and testing.
+
+#### Steps:
+1. **Disable CORS in Chrome**:
+   - Close all instances of Chrome.
+   - Open a terminal and run the following command:
+     ```bash
+     google-chrome --disable-web-security --user-data-dir=/tmp/chrome
+     ```
+   - This will open Chrome with CORS disabled. Use this only for testing.
+
+2. **Use a Browser Extension**:
+   - Install a browser extension like **CORS Unblock** or **Allow CORS** to bypass CORS restrictions.
+
+---
+
+### 4. **Use a Backend-to-Backend Solution**
+If you cannot modify the server or use a proxy, you can create a backend service (e.g., using Node.js) that acts as a middleman between your Angular app and the API. Your backend service will make the request to the API and return the response to your Angular app.
+
+#### Example:
+1. **Create a Backend Service**:
+   ```javascript
+   const express = require('express');
+   const axios = require('axios');
+   const app = express();
+
+   app.get('/api/data', async (req, res) => {
+     try {
+       const response = await axios.get('http://your-api-server.com/api/data');
+       res.json(response.data);
+     } catch (error) {
+       res.status(500).json({ error: 'Something went wrong' });
+     }
+   });
+
+   app.listen(3000, () => {
+     console.log('Backend service is running on port 3000');
+   });
+   ```
+
+2. **Call Your Backend Service from Angular**:
+   ```typescript
+   this.http.get('http://localhost:3000/api/data').subscribe((data) => {
+     console.log(data);
+   });
+   ```
+
+---
+
+### 5. **Use JSONP (Only for GET Requests)**
+If the API supports JSONP, you can use it to bypass CORS for GET requests. However, JSONP is outdated and not recommended for modern applications.
+
+#### Example:
+```typescript
+import { HttpClientJsonpModule } from '@angular/common/http';
+
+// In your service
+this.http.jsonp('http://your-api-server.com/api/data?callback=JSONP_CALLBACK', 'callback').subscribe((data) => {
+  console.log(data);
+});
+```
+
+---
+
+### Summary
+- **Recommended**: Fix CORS on the server by adding the `Access-Control-Allow-Origin` header.
+- **Development Workaround**: Use a proxy in Angular to avoid CORS issues.
+- **Temporary Workaround**: Disable CORS in the browser (not for production).
+- **Backend Solution**: Create a backend service to act as a middleman.
+- **JSONP**: Use JSONP for GET requests (not recommended).
+
+### Other option to call proxy is 
+```
+edit "start" of your package.json to look below
+
+"start": "ng serve --proxy-config proxy.conf.json",
+
+```

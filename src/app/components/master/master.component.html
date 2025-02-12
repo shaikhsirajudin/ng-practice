@@ -1,14 +1,16 @@
 <div class="row">
   <div class="col-md-12  text-center">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary" >Roles</button>
-        <button type="button" class="btn btn-primary" >Designation</button>
+    <div class="btn-group" role="group" aria-label="Basic example"><!-- *ngClass directive -->
+        <button type="button" class="btn" [ngClass]="selectedTab=='Roles'?'btn-primary':'btn-success'" (click)="changeTab('Roles')">Roles</button>
+        <button type="button" class="btn " [ngClass]="selectedTab=='Designation'?'btn-primary':'btn-success'" (click)="changeTab('Designation')" >Designation</button>
     </div>
     </div>
 </div>
-<div class="row">   
-    <div class="col-md-12">
+<div class="row"> <!-- *ngIf structure directives -->  
+    <div class="col-md-12" *ngIf="selectedTab == 'Roles'">
        <app-roles></app-roles>
-       <app-designation></app-designation>
+    </div>
+    <div class="col-md-12" *ngIf="selectedTab == 'Designation'">      
+        <app-designation></app-designation>
     </div>
 </div>
