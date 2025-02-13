@@ -1,1 +1,25 @@
-<p>designation works!</p>
+<div class="row">   
+<div class="col-12">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Roles</th>
+            <th>FullName</th>
+        </tr>
+        </thead>
+        <tbody>
+            @for (item of users; track $index) {
+           
+            <tr >
+                <td>{{$index+1}}</td>
+                <td>{{item.role}}</td>
+                <td>{{item.fullName}}</td>
+            </tr>
+            }
+        
+        </tbody>
+    </table>
+</div>
+
+</div>

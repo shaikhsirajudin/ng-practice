@@ -48,5 +48,24 @@
         </div>
     </div>
 </div>
-
+<div class="row">   
+    <div class="col-3"> 
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Role</th>
+                    <th>FullName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of users; let i = index">
+                    <td>{{i}}</td>
+                    <td>{{item.role}}</td>
+                    <td>{{item.fullName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
     
