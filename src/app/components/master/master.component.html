@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-12  text-center">
+  <div class="col-12  text-center">
     <div class="btn-group" role="group" aria-label="Basic example"><!-- *ngClass directive -->
         <button type="button" class="btn" [ngClass]="selectedTab=='Roles'?'btn-primary':'btn-success'" (click)="changeTab('Roles')">Roles</button>
         <button type="button" class="btn " [ngClass]="selectedTab=='Designation'?'btn-primary':'btn-success'" (click)="changeTab('Designation')" >Designation</button>
@@ -7,10 +7,10 @@
     </div>
 </div>
 <div class="row"> <!-- *ngIf structure directives -->  
-    <div class="col-md-12" *ngIf="selectedTab == 'Roles'">
+    <div class="col-12" *ngIf="selectedTab == 'Roles'">
        <app-roles></app-roles>
     </div>
-    <div class="col-md-12" *ngIf="selectedTab == 'Designation'">      
+    <div class="col-12" *ngIf="selectedTab == 'Designation'">      
         <app-designation></app-designation>
     </div>
 </div>

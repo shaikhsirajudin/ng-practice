@@ -1,25 +1,14 @@
-<div class="row">   
-<div class="col-12">
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Sr. No.</th>
-            <th>Roles</th>
-            <th>FullName</th>
-        </tr>
-        </thead>
-        <tbody>
-            @for (item of users; track $index) {
-           
-            <tr >
-                <td>{{$index+1}}</td>
-                <td>{{item.role}}</td>
-                <td>{{item.fullName}}</td>
-            </tr>
-            }
-        
-        </tbody>
-    </table>
-</div>
-
+<div class="row">
+    @for (item of users; track $index) {
+    <div class="col-3">
+        <div class="card">
+        <div class="card-body">
+            <h4 class="card-title  ">{{item.fullName}}</h4>
+            <p class="card-text">{{item.projectName}}</p>
+            <a href="#" class="card-link">{{item.emailId}}</a>
+            <a href="#" class="card-link">{{item.userName}}</a>
+        </div>
+        </div>
+    </div>
+    }
 </div>

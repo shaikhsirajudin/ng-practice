@@ -13008,3 +13008,545 @@ The new `@` control flow statements in Angular 17 provide a **modern, intuitive,
 | **Switching**         | `@switch` with `@case`/`@default`         | `*ngSwitch` with `*ngSwitchCase`/`*ngSwitchDefault` |
 
 By adopting the new `@` control flow statements, you can write cleaner, more maintainable Angular templates with less boilerplate code.
+
+### Explain with example Angular different types of directives e.g structural ,attribute, custom , other and  so on
+Angular directives are a core feature that allow you to extend HTML with custom behavior and functionality. They can be categorized into several types, including **structural**, **attribute**, **component**, **custom**, **built-in**, **template**, **host**, **exportAs**, and more. Below is a detailed explanation of each type with examples, covering Angular up to version 19.
+
+---
+
+### 1. **Structural Directives**
+Structural directives change the structure of the DOM by adding, removing, or manipulating elements. They are prefixed with an asterisk (`*`).
+
+#### Examples:
+- **`*ngIf`**: Conditionally adds or removes an element.
+  ```html
+  <div *ngIf="isVisible">
+    This is visible!
+  </div>
+  ```
+  The `<div>` is added to the DOM only if `isVisible` is `true`.
+
+- **`*ngFor`**: Repeats an element for each item in a list.
+  ```html
+  <ul>
+    <li *ngFor="let item of items">
+      {{ item.name }}
+    </li>
+  </ul>
+  ```
+  This creates a `<li>` for each item in the `items` array.
+
+- **`*ngSwitch`**: Conditionally displays elements based on a value.
+  ```html
+  <div [ngSwitch]="status">
+    <p *ngSwitchCase="'success'">Success!</p>
+    <p *ngSwitchCase="'error'">Error!</p>
+    <p *ngSwitchDefault>Unknown status.</p>
+  </div>
+  ```
+
+---
+
+### 2. **Attribute Directives**
+Attribute directives change the appearance or behavior of an element, component, or another directive. They are applied as attributes to existing elements.
+
+#### Examples:
+- **`ngClass`**: Dynamically adds or removes CSS classes.
+  ```html
+  <div [ngClass]="{'active': isActive, 'disabled': isDisabled}">
+    Content
+  </div>
+  ```
+  Adds the `active` class if `isActive` is `true` and the `disabled` class if `isDisabled` is `true`.
+
+- **`ngStyle`**: Dynamically applies inline styles.
+  ```html
+  <div [ngStyle]="{'color': textColor, 'font-size.px': fontSize}">
+    Styled Text
+  </div>
+  ```
+  Applies the `color` and `font-size` styles dynamically.
+
+- **`ngModel`**: Enables two-way data binding for form inputs.
+  ```html
+  <input [(ngModel)]="username" placeholder="Enter username">
+  ```
+
+---
+
+### 3. **Component Directives**
+Components are a special type of directive with a template. They are the building blocks of Angular applications.
+
+#### Example:
+```typescript
+@Component({
+  selector: 'app-root',
+  template: `<h1>Hello, World!</h1>`
+})
+export class AppComponent {}
+```
+Usage in HTML:
+```html
+<app-root></app-root>
+```
+
+---
+
+### 4. **Custom Directives**
+Custom directives are user-defined directives that extend HTML functionality. You can create **attribute** or **structural** directives.
+
+#### Example: Custom Attribute Directive
+```typescript
+import { Directive, ElementRef, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+  constructor(private el: ElementRef) {}
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight('yellow');
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight(null);
+  }
+
+  private highlight(color: string | null) {
+    this.el.nativeElement.style.backgroundColor = color;
+  }
+}
+```
+Usage in HTML:
+```html
+<p appHighlight>Hover over me to highlight!</p>
+```
+
+#### Example: Custom Structural Directive
+```typescript
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[appUnless]'
+})
+export class UnlessDirective {
+  @Input() set appUnless(condition: boolean) {
+    if (!condition) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    } else {
+      this.viewContainer.clear();
+    }
+  }
+
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef
+  ) {}
+}
+```
+Usage in HTML:
+```html
+<div *appUnless="isHidden">
+  This content is shown unless `isHidden` is true.
+</div>
+```
+
+---
+
+### 5. **Built-in Directives**
+Angular provides several built-in directives for common use cases.
+
+#### Examples:
+- **`ngIf`**, **`ngFor`**, **`ngSwitch`**: Structural directives.
+- **`ngClass`**, **`ngStyle`**, **`ngModel`**: Attribute directives.
+
+---
+
+### 6. **Template Directives**
+Template directives are used to manipulate Angular templates. They include `ng-template`, `ng-container`, and `ng-content`.
+
+#### Examples:
+- **`ng-template`**: Defines a template that can be reused.
+  ```html
+  <ng-template #myTemplate>
+    <p>This is a template.</p>
+  </ng-template>
+  <div *ngTemplateOutlet="myTemplate"></div>
+  ```
+
+- **`ng-container`**: A logical container that does not render any additional DOM elements.
+  ```html
+  <ng-container *ngIf="isVisible">
+    <p>This is inside a container.</p>
+  </ng-container>
+  ```
+
+- **`ng-content`**: Used for content projection in components.
+  ```html
+  <!-- app-card.component.html -->
+  <div class="card">
+    <ng-content></ng-content>
+  </div>
+  ```
+  Usage:
+  ```html
+  <app-card>
+    <p>This content is projected into the card.</p>
+  </app-card>
+  ```
+
+---
+
+### 7. **Host Directives**
+Host directives are applied to the host element of a component or directive. They allow you to modify the behavior or appearance of the host element.
+
+#### Example:
+```typescript
+@Directive({
+  selector: '[appHostDirective]',
+  host: {
+    '(mouseenter)': 'onMouseEnter()',
+    '(mouseleave)': 'onMouseLeave()'
+  }
+})
+export class HostDirective {
+  onMouseEnter() {
+    console.log('Mouse entered!');
+  }
+
+  onMouseLeave() {
+    console.log('Mouse left!');
+  }
+}
+```
+Usage:
+```html
+<div appHostDirective>Hover over me!</div>
+```
+
+---
+
+### 8. **ExportAs Directives**
+The `exportAs` property in a directive allows you to expose the directive instance to the template, making it accessible via a template reference variable.
+
+#### Example:
+```typescript
+@Directive({
+  selector: '[appExportAs]',
+  exportAs: 'exportedDirective'
+})
+export class ExportAsDirective {
+  logMessage() {
+    console.log('Directive method called!');
+  }
+}
+```
+Usage in HTML:
+```html
+<div appExportAs #dir="exportedDirective">
+  <button (click)="dir.logMessage()">Call Directive Method</button>
+</div>
+```
+
+---
+
+### 9. **Other Directives**
+- **Pipes**: While not directives, pipes transform data in templates.
+  ```html
+  <p>{{ today | date:'fullDate' }}</p>
+  ```
+
+- **Router Directives**: Used for navigation and routing.
+  ```html
+  <a routerLink="/home">Home</a>
+  <router-outlet></router-outlet>
+  ```
+
+---
+
+### Summary Table
+| Type              | Example Directives       | Purpose                                                                 |
+|-------------------|--------------------------|-------------------------------------------------------------------------|
+| **Structural**    | `*ngIf`, `*ngFor`, `*ngSwitch` | Modify the DOM structure by adding/removing elements.                  |
+| **Attribute**     | `ngClass`, `ngStyle`, `ngModel` | Change the appearance or behavior of elements.                         |
+| **Component**     | `@Component`             | Define reusable UI components with templates.                          |
+| **Custom**        | User-defined directives  | Extend HTML functionality with custom logic.                           |
+| **Built-in**      | `ngIf`, `ngFor`, `ngClass` | Provide common functionality out of the box.                           |
+| **Template**      | `ng-template`, `ng-container`, `ng-content` | Manipulate templates and content projection.                           |
+| **Host**          | Host bindings/listeners  | Modify the behavior of the host element.                               |
+| **ExportAs**      | `exportAs` property      | Expose directive instances to templates.                               |
+| **Other**         | Pipes, Router Directives | Transform data or handle navigation.                                   |
+
+By leveraging these directives, you can create dynamic, reusable, and maintainable Angular applications.
+
+
+### Angular redirection?
+In Angular, redirection is commonly used to navigate users from one route to another programmatically. This is typically done using Angular's **Router** service. Below is a detailed explanation of how to implement a **redirect function** in Angular, along with examples.
+
+---
+
+### 1. **Using `Router.navigate()`**
+The `Router.navigate()` method is used to navigate to a specific route programmatically. It takes an array of route segments and an optional navigation extras object.
+
+#### Example:
+```typescript
+import { Router } from '@angular/router';
+
+constructor(private router: Router) {}
+
+redirectToHome() {
+  this.router.navigate(['/home']);
+}
+
+redirectToUserProfile(userId: number) {
+  this.router.navigate(['/user', userId]); // Navigates to /user/123
+}
+
+redirectWithQueryParams() {
+  this.router.navigate(['/search'], { queryParams: { q: 'angular' } }); // Navigates to /search?q=angular
+}
+```
+
+#### Usage in Template:
+```html
+<button (click)="redirectToHome()">Go to Home</button>
+<button (click)="redirectToUserProfile(123)">View Profile</button>
+<button (click)="redirectWithQueryParams()">Search Angular</button>
+```
+
+---
+
+### 2. **Using `Router.navigateByUrl()`**
+The `Router.navigateByUrl()` method is used to navigate to a specific URL. It takes a string representing the full URL.
+
+#### Example:
+```typescript
+import { Router } from '@angular/router';
+
+constructor(private router: Router) {}
+
+redirectToAbout() {
+  this.router.navigateByUrl('/about');
+}
+
+redirectToExternalUrl() {
+  window.location.href = 'https://angular.io'; // Redirects to an external URL
+}
+```
+
+#### Usage in Template:
+```html
+<button (click)="redirectToAbout()">Go to About</button>
+<button (click)="redirectToExternalUrl()">Visit Angular Website</button>
+```
+
+---
+
+### 3. **Route Redirection in `RouterModule`**
+You can configure route redirection directly in the `RouterModule` using the `redirectTo` property in the route configuration.
+
+#### Example:
+```typescript
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirects empty path to /home
+  { path: 'home', component: HomeComponent },
+  { path: 'old-path', redirectTo: '/new-path', pathMatch: 'full' }, // Redirects /old-path to /new-path
+  { path: 'new-path', component: NewComponent },
+  { path: '**', redirectTo: '/not-found' } // Redirects all unknown paths to /not-found
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+```
+
+---
+
+### 4. **Conditional Redirection**
+You can implement conditional redirection based on certain logic, such as user authentication status.
+
+#### Example:
+```typescript
+import { Router } from '@angular/router';
+
+constructor(private router: Router, private authService: AuthService) {}
+
+redirectBasedOnAuth() {
+  if (this.authService.isLoggedIn()) {
+    this.router.navigate(['/dashboard']);
+  } else {
+    this.router.navigate(['/login']);
+  }
+}
+```
+
+#### Usage in Template:
+```html
+<button (click)="redirectBasedOnAuth()">Go to Dashboard</button>
+```
+
+---
+
+### 5. **Redirection with Guards**
+Angular route guards can be used to enforce redirection based on certain conditions, such as authentication or authorization.
+
+#### Example: Auth Guard
+```typescript
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (this.authService.isLoggedIn()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+}
+```
+
+#### Usage in Route Configuration:
+```typescript
+const routes: Routes = [
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent }
+];
+```
+
+---
+
+### 6. **Redirection in Components**
+You can also perform redirection directly in component lifecycle hooks, such as `ngOnInit`.
+
+#### Example:
+```typescript
+import { Router } from '@angular/router';
+
+constructor(private router: Router) {}
+
+ngOnInit() {
+  // Redirect to /home after 5 seconds
+  setTimeout(() => {
+    this.router.navigate(['/home']);
+  }, 5000);
+}
+```
+
+---
+
+### 7. **Redirection with Query Parameters and Fragments**
+You can pass query parameters or fragments during redirection.
+
+#### Example:
+```typescript
+redirectWithQueryParamsAndFragment() {
+  this.router.navigate(['/search'], {
+    queryParams: { q: 'angular' },
+    fragment: 'section1'
+  }); // Navigates to /search?q=angular#section1
+}
+```
+
+#### Usage in Template:
+```html
+<button (click)="redirectWithQueryParamsAndFragment()">Search Angular</button>
+```
+
+---
+
+### 8. **Redirection to External URLs**
+To redirect to an external URL, you can use `window.location.href`.
+
+#### Example:
+```typescript
+redirectToExternalUrl() {
+  window.location.href = 'https://angular.io';
+}
+```
+
+#### Usage in Template:
+```html
+<button (click)="redirectToExternalUrl()">Visit Angular Website</button>
+```
+
+---
+
+### Summary Table
+| Method/Feature               | Description                                                                 |
+|------------------------------|-----------------------------------------------------------------------------|
+| **`Router.navigate()`**       | Navigates to a route programmatically using an array of route segments.     |
+| **`Router.navigateByUrl()`**  | Navigates to a specific URL.                                                |
+| **`redirectTo` in Routes**    | Configures route redirection in the `RouterModule`.                         |
+| **Conditional Redirection**   | Redirects based on conditions like authentication status.                   |
+| **Route Guards**              | Enforces redirection using guards like `AuthGuard`.                        |
+| **Query Parameters/Fragments**| Passes query parameters or fragments during redirection.                    |
+| **External URLs**             | Redirects to external URLs using `window.location.href`.                    |
+
+
+### Angular Route.redirectTo function
+In Angular, the `redirectTo` property is used in the route configuration to specify a redirection from one route to another. This is useful when you want to redirect users from a certain path to a different path automatically.
+
+### Usage of `redirectTo`
+
+The `redirectTo` property is typically used within the `Routes` array in your Angular routing module. It allows you to define a route that, when matched, will redirect the user to another route.
+
+### Syntax
+
+```typescript
+const routes: Routes = [
+  { path: 'old-path', redirectTo: '/new-path', pathMatch: 'full' },
+  { path: 'new-path', component: NewComponent }
+];
+```
+
+### Key Points:
+
+1. **`path`**: The path that you want to redirect from.
+2. **`redirectTo`**: The path you want to redirect to.
+3. **`pathMatch`**: This determines how the router should match the URL. The value `'full'` means the entire URL path needs to be matched and should be equal to the `path` property. This is often used with `redirectTo` to ensure that the redirection only happens when the entire path matches.
+
+### Example
+
+Suppose you have an application where you want to redirect users from the root path (`/`) to a default route like `/home`:
+
+```typescript
+const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent }
+];
+```
+
+In this example:
+
+- When the user navigates to the root URL (`/`), they will be automatically redirected to `/home`.
+- The `pathMatch: 'full'` ensures that the redirection only occurs if the entire URL is exactly `/`.
+
+### Important Notes:
+
+- **Order of Routes**: The order of routes in the `Routes` array matters. Angular uses a first-match wins strategy when matching routes, so more specific routes should be placed before less specific ones.
+- **Wildcard Routes**: If you want to redirect all unknown paths to a specific route, you can use a wildcard (`**`) route:
+
+  ```typescript
+  const routes: Routes = [
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
+    { path: 'about', component: AboutComponent },
+    { path: '**', redirectTo: '/home' } // Redirects all unknown paths to /home
+  ];
+  ```
+
+- **Avoid Infinite Loops**: Be careful when using `redirectTo` to avoid creating infinite loops. For example, redirecting from `/a` to `/b` and then from `/b` to `/a` will cause an infinite loop.
+
+

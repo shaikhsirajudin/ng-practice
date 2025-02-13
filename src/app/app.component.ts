@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { RolesComponent } from './components/roles/roles.component';
 import { MasterComponent } from './components/master/master.component';
 import { DesignationComponent } from './components/designation/designation.component';
@@ -9,7 +9,13 @@ import { DesignationComponent } from './components/designation/designation.compo
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink,RolesComponent,MasterComponent,DesignationComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive, RolesComponent,
+    MasterComponent,
+    DesignationComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

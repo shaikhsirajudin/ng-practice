@@ -1,2 +1,36 @@
-<h1>App Component</h1>
-<app-master></app-master>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)">Bank</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/master">Master</a></li>
+                <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/user">User</a></li>
+                <li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/customer">Customer</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/templateFormValidation']"
+                        routerLinkActive="active">Template
+                        Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/reactiveFormValidation']"
+                        routerLinkActive="active">Reactive
+                        Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/control-flow']"
+                        routerLinkActive="active">Control-Flow</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="button">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container mt-2">
+    <router-outlet></router-outlet>
+</div>
