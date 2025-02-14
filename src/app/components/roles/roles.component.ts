@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-roles',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './roles.component.html',
   styleUrl: './roles.component.scss',
 })
@@ -16,6 +16,7 @@ export class RolesComponent implements OnInit {
   New way of dependency injection */
   http = inject(HttpClient);
   users: IUser[] = [];
+  isLoading: boolean = true;
 
   /* Old way of dependency injection
   constructor(private http: HttpClient) { 
@@ -25,7 +26,7 @@ export class RolesComponent implements OnInit {
   }*/
 
   ngOnInit(): void {
-   this.getAllRoles();
+    this.getAllRoles();
   }
   firstName: string = 'John';
   angularVersion: number = 12;
@@ -42,10 +43,9 @@ export class RolesComponent implements OnInit {
     alert(message);
   }
   getAllRoles() {
-    
     this.http.get('/api/BankLoan/GetAllUsers').subscribe((res: any) => {
-      this.users=res.data;     
+      this.users = res.data;
+      this.isLoading = false;
     });
- 
   }
 }

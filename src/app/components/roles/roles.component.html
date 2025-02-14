@@ -1,5 +1,12 @@
-<p>roles works!</p>
 <div class="container">
+    <div class="row" *ngIf="isLoading">
+        <div class="col-12 text-left">           
+        <button class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm"></span>
+            Loading..
+        </button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-3">
             <p>{{firstName}}</p>
