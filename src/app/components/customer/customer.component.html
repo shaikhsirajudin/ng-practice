@@ -1,36 +1,76 @@
 <div class="row">
     <div class="col-8">
         <div class="card">
-            <div class="card-header">
-                <h4>Customer</h4>
+            <div class="card-header bg-success">
+                Customers
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Sr. No.</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Mobile</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>John</td>
-                            <td>Doe</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Mary</td>
-                            <td>Moe</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>User Id</th>
+                                    <th>User Name</th>
+                                    <th>Email Id</th>
+                                    <th>Full Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Mary</td>
+                                    <td>Moe</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header bg-success">
+                New Customer
+            </div>
+            <div class="card-body">
 
+                <div class="row">
+                    <div class="col-6">
+                        <label for="userName">User Name:</label>
+                        <input type="text" class="form-control" [(ngModel)]="customer.userId" placeholder="Enter User Name">
+                    </div>
+                    <div class="col-6">
+                        <label for="emailId">Email Id:</label>
+                        <input type="email" class="form-control"  [(ngModel)]="customer.emailId" placeholder="Enter Email Id">
 
+                    </div>
+                    <div class="col-6">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" class="form-control" [(ngModel)]="customer.fullName" placeholder="Enter Full Name">
 
+                    </div>
+                    <div class="col-6">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" [(ngModel)]="customer.password" placeholder="Enter Password">
+
+                    </div>
+
+                </div>
+                <div class="row pt-2">
+                    <div class="col-6 text-center">
+                        <button class="btn btn-secondary">Reset</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button class="btn btn-success">Save</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

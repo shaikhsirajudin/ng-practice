@@ -1,11 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../../services/customer.service';
+import {  FormsModule } from '@angular/forms';
+import { Customer } from '../../model/customer';
 
 @Component({
   selector: 'app-customer',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './customer.component.html',
-  styleUrl: './customer.component.scss'
+  styleUrl: './customer.component.scss',
 })
-export class CustomerComponent {
-
+  constructor(private customerService: CustomerService) {}
+  ngOnInit(): void {
+    this.getCustomers();
+  }
+  customer: Customer = {};
+  customers: Customer[] = [];
 }

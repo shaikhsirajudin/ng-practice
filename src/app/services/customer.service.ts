@@ -5,19 +5,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class MasterService {
-
-
+export class CustomerService {
+  private apiUrl = 'api/BankLoan'; // Example API URL
   constructor(private http: HttpClient) {
     this.http = http;
   }
-
-  // Example: GET request
-  getPosts(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/GetAllUsers`);
+  // Example: POST request
+  createPost(post: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/RegisterAsBankUser`, post);
   }
-
-  
-
- 
 }
