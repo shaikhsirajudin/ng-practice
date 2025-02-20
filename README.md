@@ -10841,6 +10841,7 @@ If you need a global variable that can be observed for changes, you can use RxJS
     - Use `switchMap` to cancel previous requests.
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### 1. **What is RxJS?**
 RxJS is a library for composing asynchronous and event-based programs using observable sequences. It provides a powerful way to handle asynchronous data streams, such as HTTP requests, user input events, and more.
@@ -11040,6 +11041,8 @@ A **Scheduler** controls when a subscription starts and when notifications are d
   ```
 
 ---
+[Back to top⤴️](#table-of-contents)
+
 ### What is difference between promise vs observable vs subscriber vs subject
 
 In JavaScript and RxJS, **Promises**, **Observables**, **Subscribers**, and **Subjects** are used to handle asynchronous operations, but they serve different purposes and have distinct characteristics. Here's a detailed comparison:
@@ -11236,6 +11239,7 @@ TypeScript is a superset of JavaScript, so it supports all JavaScript features f
     ```
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### **3. RxJS (Reactive Extensions for JavaScript)**
 RxJS is a library for reactive programming using Observables. It is particularly useful for handling asynchronous streams of data.
@@ -11360,10 +11364,13 @@ Angular leverages RxJS and Promises for handling asynchronous operations, especi
 | **RxJS**        | `of`, `from` for sync streams       | Observables, Operators, Subjects                                                |
 | **Angular**     | Plain JS/TS                         | HTTPClient (Observables), Async Pipe, Reactive Forms                            |
 
+[Back to top⤴️](#table-of-contents)
+
 ### Explain life cycle of angular?
 The **Angular lifecycle** refers to the series of phases an Angular component or directive goes through from its creation to its destruction. Angular provides lifecycle hooks—methods that allow you to tap into these phases and execute custom logic at specific moments. Understanding the lifecycle is crucial for managing component behavior, optimizing performance, and avoiding memory leaks.
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### **Angular Component Lifecycle Hooks**
 Angular provides the following lifecycle hooks for components and directives:
@@ -11475,6 +11482,7 @@ The lifecycle hooks are executed in the following order:
    - `ngOnDestroy`
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### **Example of Lifecycle in Action**
 ```typescript
@@ -11683,6 +11691,7 @@ constructor(private router: Router) {
 - **Scroll Restoration**: Customize scroll behavior using the `Scroll` event.
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ## **Example of Router Event Subscription**
 
@@ -11946,6 +11955,8 @@ Angular routing is a powerful feature that enables navigation between different 
   ```
 
 ---
+[Back to top⤴️](#table-of-contents)
+
 ### Explain the different types of data binding in Angular?
 
 Angular provides several ways to bind data between the component class and the template. These binding techniques enable communication between the TypeScript code (component logic) and the HTML template (view). Below is a detailed explanation of the **different types of data binding in Angular**:
@@ -12177,6 +12188,7 @@ export class AppComponent {
 | Structural Directives | `*directive="expr"`   | N/A                | Modify DOM structure conditionally.          |
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### The one-way binding and two-way binding in angular?
 In Angular, data binding is a powerful feature that allows you to connect the component class (TypeScript) with the template (HTML). There are two main types of data binding: **one-way binding** and **two-way binding**. Below are examples of each type:
@@ -12427,6 +12439,7 @@ In Angular, directives are used to extend the functionality of HTML elements and
 - **Structural Directives**: Modify the DOM layout by adding or removing elements.
 - **Attribute Directives**: Change the appearance or behavior of elements.
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### Different types of Structural Directives in details?
 In Angular, **structural directives** are used to manipulate the DOM by adding, removing, or replacing elements based on conditions or loops. They are prefixed with an asterisk (`*`) to indicate their structural nature. Below are the **key structural directives** in Angular, explained in detail:
@@ -12581,6 +12594,8 @@ In Angular, **structural directives** are used to manipulate the DOM by adding, 
 3. **Custom Structural Directives**: Angular allows you to create your own structural directives for advanced use cases.
 
 ---
+[Back to top⤴️](#table-of-contents)
+
 ### Different types of Attribute in angular?
 In Angular, **attribute directives** are used to change the appearance, behavior, or attributes of DOM elements. Unlike structural directives, which modify the DOM structure, attribute directives work with existing elements to enhance their functionality. Below are the **types of attribute directives** in Angular, explained in detail:
 
@@ -12991,6 +13006,7 @@ export class AppModule {}
 ```
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### **2. Create a Service to Handle API Calls**
 Create an Angular service using the CLI:
@@ -13107,6 +13123,7 @@ You should see the API data displayed in the browser.
 ✅ **Created `ApiService`** to handle API requests.  
 ✅ **Injected and used the service** in `AppComponent`.  
 ✅ **Displayed the API data** in the HTML file.  
+[Back to top⤴️](#table-of-contents)
 
 ### How to fix  CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. 
 The **CORS (Cross-Origin Resource Sharing)** error occurs when a web application running at one origin (domain) tries to make a request to a server at a different origin, and the server does not allow the request due to missing or incorrect CORS headers.
@@ -13114,6 +13131,7 @@ The **CORS (Cross-Origin Resource Sharing)** error occurs when a web application
 To fix the **CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource** error in Angular, you can use one of the following approaches:
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### 1. **Fix CORS on the Server-Side (Recommended)**
 The best and most secure way to resolve CORS issues is to configure the server to allow requests from your Angular application's origin.
@@ -13158,6 +13176,8 @@ The best and most secure way to resolve CORS issues is to configure the server t
      ```
 
 ---
+[Back to top⤴️](#table-of-contents)
+
 
 ### 2. **Use a Proxy in Angular (Development Only)**
 If you cannot modify the server, you can set up a **proxy** in your Angular application during development. This avoids CORS issues by making the API requests appear to come from the same origin as your Angular app.
@@ -13204,6 +13224,7 @@ If you cannot modify the server, you can set up a **proxy** in your Angular appl
      ```
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### 3. **Disable CORS in the Browser (Temporary Workaround)**
 This is **not recommended** for production but can be used for local development and testing.
@@ -13285,6 +13306,8 @@ edit "start" of your package.json to look below
 
 ```
 ---
+[Back to top⤴️](#table-of-contents)
+
 ### The difference between the new (@)control flow statement (introduced in Angular 17) and the *directive. Please give example of all control flow statements
 
 The introduction of the **new `@` control flow statements** in **Angular 17** marks a significant shift in how developers handle conditional rendering and looping in Angular templates. These new control flow statements (e.g., `@if`, `@for`, `@switch`) are designed to replace or complement the traditional **`*` directives** (e.g., `*ngIf`, `*ngFor`, `*ngSwitch`). Here's a detailed comparison of the two:
@@ -13449,6 +13472,7 @@ The introduction of the **new `@` control flow statements** in **Angular 17** ma
 | **Angular Version**    | Introduced in Angular 17 (new feature).   | Available in all Angular versions.       |
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### **When to Use What**
 - Use **`@` control flow statements** if:
@@ -13501,6 +13525,7 @@ The introduction of the **new `@` control flow statements** in **Angular 17** pr
 | **Angular Version**    | Introduced in Angular 17 (new feature).   | Available in all Angular versions.       |
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### **Examples of All Control Flow Statements**
 
@@ -13603,6 +13628,7 @@ The introduction of the **new `@` control flow statements** in **Angular 17** pr
    - The new control flow statements are optimized for better performance and change detection.
 
 ---
+[Back to top⤴️](#table-of-contents)
 
 ### **Advantages of `*` Directives**
 1. **Backward Compatibility**:
@@ -13637,6 +13663,8 @@ The new `@` control flow statements in Angular 17 provide a **modern, intuitive,
 | **Switching**         | `@switch` with `@case`/`@default`         | `*ngSwitch` with `*ngSwitchCase`/`*ngSwitchDefault` |
 
 By adopting the new `@` control flow statements, you can write cleaner, more maintainable Angular templates with less boilerplate code.
+
+[Back to top⤴️](#table-of-contents)
 
 ### Explain with example Angular different types of directives e.g structural ,attribute, custom , other and  so on
 Angular directives are a core feature that allow you to extend HTML with custom behavior and functionality. They can be categorized into several types, including **structural**, **attribute**, **component**, **custom**, **built-in**, **template**, **host**, **exportAs**, and more. Below is a detailed explanation of each type with examples, covering Angular up to version 19.
@@ -13909,6 +13937,7 @@ Usage in HTML:
 
 By leveraging these directives, you can create dynamic, reusable, and maintainable Angular applications.
 
+[Back to top⤴️](#table-of-contents)
 
 ### Angular redirection?
 In Angular, redirection is commonly used to navigate users from one route to another programmatically. This is typically done using Angular's **Router** service. Below is a detailed explanation of how to implement a **redirect function** in Angular, along with examples.
@@ -14178,4 +14207,383 @@ In this example:
 
 - **Avoid Infinite Loops**: Be careful when using `redirectTo` to avoid creating infinite loops. For example, redirecting from `/a` to `/b` and then from `/b` to `/a` will cause an infinite loop.
 
+---
+[Back to top⤴️](#table-of-contents)
+### Explain ng g environments in which version of cli added and which version of angular? what are the use cases of it?
 
+The `ng g environments` command is used in Angular CLI to generate environment files for different build configurations (e.g., development, production, staging). These files allow you to manage environment-specific variables and settings in your Angular application.
+
+### **When was `ng g environments` added?**
+- The `ng g environments` command was introduced in **Angular CLI version 15**. Prior to Angular CLI 15, developers manually created environment files (`environment.ts` and `environment.prod.ts`) and configured them in the `angular.json` file. Angular CLI 15 simplified this process by providing a dedicated command to generate and manage environment files.
+
+### **Which version of Angular is it associated with?**
+- Angular CLI 15 is part of **Angular 15**, which was released in **November 2022**. Therefore, the `ng g environments` command is available in Angular 15 and later versions.
+
+---
+[Back to top⤴️](#table-of-contents)
+### **Use Cases of `ng g environments`**
+The `ng g environments` command is used to:
+1. **Manage Environment-Specific Configurations**:
+   - Generate environment files for different build targets (e.g., development, production, staging).
+   - Store environment-specific variables like API endpoints, feature flags, or third-party service keys.
+
+2. **Simplify Configuration**:
+   - Automatically updates the `angular.json` file with the new environment configurations, reducing manual errors.
+
+3. **Support Multiple Build Targets**:
+   - Create custom environments for different deployment scenarios (e.g., `staging`, `qa`, `production`).
+
+4. **Improve Development Workflow**:
+   - Easily switch between environments during development, testing, and production builds.
+
+---
+
+### **How to Use `ng g environments`**
+1. **Generate Environment Files**:
+   Run the following command to generate environment files:
+   ```bash
+   ng g environments
+   ```
+   This creates:
+   - `src/environments/environment.ts` (default development environment).
+   - `src/environments/environment.prod.ts` (production environment).
+
+2. **Add Custom Environments**:
+   To add a custom environment (e.g., staging), update the `angular.json` file and create a corresponding environment file (e.g., `environment.staging.ts`).
+
+3. **Use Environment Variables**:
+   Import the environment file in your Angular components or services:
+   ```typescript
+   import { environment } from '../environments/environment';
+   console.log(environment.apiUrl);
+   ```
+
+4. **Build for Specific Environments**:
+   Use the `--configuration` flag to build for a specific environment:
+   ```bash
+   ng build --configuration=staging
+   ```
+
+---
+
+### **Example of Environment Files**
+- **`environment.ts` (Development)**:
+  ```typescript
+  export const environment = {
+    production: false,
+    apiUrl: 'https://dev.api.example.com',
+  };
+  ```
+
+- **`environment.prod.ts` (Production)**:
+  ```typescript
+  export const environment = {
+    production: true,
+    apiUrl: 'https://api.example.com',
+  };
+  ```
+[Back to top⤴️](#table-of-contents)
+---
+
+### **Summary**
+- **Introduced in**: Angular CLI 15 (Angular 15).
+- **Purpose**: Simplify the creation and management of environment-specific configurations.
+- **Use Cases**: Managing API endpoints, feature flags, and other environment-specific settings for different build targets.
+
+This feature is particularly useful for developers working on applications that require different configurations for development, testing, and production environments.
+
+[Back to top⤴️](#table-of-contents)
+
+---
+
+### Explain all Template Variables and Reference variables with example in angular?
+In Angular, **template variables** and **reference variables** are used to reference and interact with DOM elements, Angular components, directives, or other constructs within the template. Below is a comprehensive explanation of all types of template and reference variables, along with examples.
+
+---
+
+### 1. **Template Variables**
+Template variables are defined using the `#` symbol followed by a variable name. They can reference:
+- DOM elements
+- Angular components
+- Directives
+- Template contexts (e.g., `ngFor`)
+
+#### Example 1: Reference to a DOM Element
+```html
+<input #myInput type="text" placeholder="Enter something">
+<button (click)="logValue(myInput.value)">Log Input Value</button>
+```
+- `#myInput` is a reference to the `<input>` DOM element.
+- You can access its properties, such as `value`, in the component class or directly in the template.
+
+#### Example 2: Reference to an Angular Component
+```html
+<app-my-component #myComponent></app-my-component>
+<button (click)="myComponent.doSomething()">Call Component Method</button>
+```
+- `#myComponent` is a reference to the instance of the `MyComponent` component.
+- You can call its methods or access its properties.
+
+#### Example 3: Reference to a Directive
+```html
+<div #myDirective="myDirective" myDirective></div>
+```
+- `#myDirective="myDirective"` creates a reference to the directive instance.
+- This is useful when the directive exposes properties or methods.
+
+---
+
+### 2. **Reference Variables**
+Reference variables are a subset of template variables. They are used to reference specific Angular constructs, such as `ngModel`, `ngForm`, or structural directives.
+
+#### Example 1: `#var="ngModel"`
+```html
+<input [(ngModel)]="name" #myInput="ngModel" required>
+<p *ngIf="myInput.invalid && myInput.touched">Name is required.</p>
+```
+- `#myInput="ngModel"` creates a reference to the `ngModel` directive instance.
+- You can access properties like:
+  - `myInput.valid`: Whether the control is valid.
+  - `myInput.touched`: Whether the control has been touched.
+  - `myInput.errors`: Validation errors.
+
+#### Example 2: `#var="ngForm"`
+```html
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+  <input name="name" ngModel required>
+  <button type="submit" [disabled]="myForm.invalid">Submit</button>
+</form>
+```
+- `#myForm="ngForm"` creates a reference to the `ngForm` directive instance.
+- You can access properties like:
+  - `myForm.valid`: Whether the form is valid.
+  - `myForm.value`: The value of the form.
+  - `myForm.submitted`: Whether the form has been submitted.
+
+#### Example 3: `#var="ngTemplateOutlet"`
+```html
+<ng-template #myTemplate>
+  <p>This is a template.</p>
+</ng-template>
+<ng-container *ngTemplateOutlet="myTemplate"></ng-container>
+```
+- `#myTemplate` is a reference to the `<ng-template>`.
+- It is used with `ngTemplateOutlet` to dynamically render the template.
+
+#### Example 4: `#var` with Structural Directives (`ngIf`, `ngFor`)
+```html
+<div *ngIf="condition; else elseBlock">Content</div>
+<ng-template #elseBlock>Else Content</ng-template>
+```
+- `#elseBlock` is a reference to the `<ng-template>` used in the `else` clause of `ngIf`.
+
+```html
+<ul>
+  <li *ngFor="let item of items; index as i" #listItem>
+    {{ i }}: {{ item }}
+  </li>
+</ul>
+```
+- `#listItem` is a reference to each `<li>` element created by `ngFor`.
+
+---
+
+### 3. **Special Reference Variables**
+Angular provides special reference variables for specific use cases.
+
+#### Example 1: `$event`
+```html
+<input (input)="onInput($event)">
+```
+- `$event` is a special variable that represents the event object emitted by DOM events.
+
+#### Example 2: `#var` with `ViewChild` in Component Class
+```html
+<input #myInput type="text">
+```
+```typescript
+@ViewChild('myInput') myInput: ElementRef;
+```
+- `#myInput` is a reference to the `<input>` element.
+- You can access it in the component class using `@ViewChild`.
+
+---
+
+### 4. **Template Context Variables**
+These variables are available within the context of structural directives like `ngFor`.
+
+#### Example: `ngFor` Context Variables
+```html
+<ul>
+  <li *ngFor="let item of items; index as i; first as isFirst; last as isLast">
+    {{ i }}: {{ item }} (First: {{ isFirst }}, Last: {{ isLast }})
+  </li>
+</ul>
+```
+- `index as i`: The current index of the iteration.
+- `first as isFirst`: Whether the current item is the first in the iteration.
+- `last as isLast`: Whether the current item is the last in the iteration.
+
+---
+
+### 5. **Summary of All Types**
+| Type                          | Example                                  | Description                                                                 |
+|-------------------------------|------------------------------------------|-----------------------------------------------------------------------------|
+| **DOM Element Reference**     | `<input #myInput>`                      | References a DOM element.                                                   |
+| **Component Reference**       | `<app-my-component #myComponent>`       | References an Angular component instance.                                   |
+| **Directive Reference**       | `<div #myDirective="myDirective">`      | References a directive instance.                                            |
+| **`ngModel` Reference**       | `<input #myInput="ngModel">`            | References the `ngModel` directive for form controls.                       |
+| **`ngForm` Reference**        | `<form #myForm="ngForm">`               | References the `ngForm` directive for forms.                                |
+| **Template Reference**        | `<ng-template #myTemplate>`             | References an `<ng-template>`.                                              |
+| **Structural Directive**      | `<div *ngIf="condition; #elseBlock">`   | References a template used in structural directives like `ngIf`.            |
+| **Context Variables**         | `*ngFor="let item of items; index as i"`| References context variables like `index`, `first`, `last` in `ngFor`.      |
+
+---
+
+### Key Takeaways
+- Template variables (`#var`) are used to reference elements, components, or directives in the template.
+- Reference variables (`#var="directive"`) are used to reference specific Angular constructs like `ngModel` or `ngForm`.
+- Special variables like `$event` and context variables (`index`, `first`, `last`) are used in specific scenarios.
+
+---
+
+### **Template Variables and Reference Variables in Angular**
+Template variables and reference variables in Angular allow interaction with elements, components, and directives inside a template. These variables provide an efficient way to manipulate elements without needing a component class property.
+
+---
+
+## **1. Local Reference Variables (`#varName`)**
+- Defined using `#` before a variable name.
+- Used to reference **DOM elements, components, or directives**.
+
+### **Example (Accessing DOM Element)**
+```html
+<input #myInput type="text">
+<button (click)="logValue(myInput.value)">Log Value</button>
+```
+```typescript
+logValue(value: string) {
+  console.log(value);
+}
+```
+- Here, `#myInput` references the `<input>` element and is accessed inside the button’s click event.
+
+### **Example (Accessing Component)**
+```html
+<app-child #childComp></app-child>
+<button (click)="childComp.someMethod()">Call Method</button>
+```
+- `#childComp` allows calling methods of `<app-child>`.
+
+---
+
+## **2. Directive Export Variables (`exportAs`)**
+- Some Angular directives support `exportAs`, enabling them to be referenced in templates.
+- Commonly used with **forms, ngModel, custom directives**.
+
+### **Example (`exportAs` with `ngForm`)**
+```html
+<form #myForm="ngForm">
+  <input name="email" ngModel required>
+</form>
+<p>Form valid: {{ myForm.valid }}</p>
+```
+- `#myForm="ngForm"` makes the `ngForm` instance accessible.
+
+### **Example (`exportAs` with `ngModel`)**
+```html
+<input name="email" ngModel #emailCtrl="ngModel" required>
+<p>Email Valid: {{ emailCtrl.valid }}</p>
+```
+- `#emailCtrl="ngModel"` provides validation state.
+
+### **Example (`exportAs` with Custom Directive)**
+```typescript
+@Directive({
+  selector: '[myHighlight]',
+  exportAs: 'highlight'
+})
+export class HighlightDirective {
+  toggle() { console.log('Highlight toggled!'); }
+}
+```
+```html
+<div myHighlight #highlight="highlight"></div>
+<button (click)="highlight.toggle()">Toggle Highlight</button>
+```
+- The custom directive `myHighlight` is referenced as `#highlight`.
+
+---
+
+## **3. Implicit Template Variables**
+- Available in **structural directives** (`*ngIf`, `*ngFor`).
+- Automatically created **without `#`**.
+
+### **Example (`*ngFor`)**
+```html
+<ul>
+  <li *ngFor="let item of items; index as i">
+    {{ i }} - {{ item }}
+  </li>
+</ul>
+```
+- `index as i` provides the index of the loop.
+
+### **Example (`*ngIf`)**
+```html
+<p *ngIf="user as u">User: {{ u.name }}</p>
+```
+- `user as u` allows using `u` as a reference.
+
+---
+
+## **4. Template Input Variables (`let-variable`)**
+- Used in `<ng-template>` to pass context values.
+
+### **Example (`ng-template`)**
+```html
+<ng-template #greet let-name>
+  <p>Hello, {{ name }}!</p>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="greet; context: { $implicit: 'John' }"></ng-container>
+```
+- `let-name` gets `'John'` from `context`.
+
+---
+
+## **Difference Between `#var="ngModel"` vs `#var="ngForm"`**
+| Feature | `#var="ngModel"` | `#var="ngForm"` |
+|---------|-----------------|-----------------|
+| **Reference Type** | Individual form control (input) | Entire form |
+| **Example** | `<input #emailCtrl="ngModel" ngModel>` | `<form #myForm="ngForm">` |
+| **Common Properties** | `.value`, `.valid`, `.touched`, `.dirty` | `.valid`, `.invalid`, `.pristine`, `.controls` |
+
+### **Example: `#var="ngModel"`**
+```html
+<input name="email" ngModel #emailCtrl="ngModel" required>
+<p>Email Valid: {{ emailCtrl.valid }}</p>
+```
+- `#emailCtrl="ngModel"` checks validity of input.
+
+### **Example: `#var="ngForm"`**
+```html
+<form #myForm="ngForm">
+  <input name="email" ngModel required>
+</form>
+<p>Form Valid: {{ myForm.valid }}</p>
+```
+- `#myForm="ngForm"` checks validity of the entire form.
+
+---
+
+## **Summary**
+| Type | Example | Purpose |
+|-------|---------|---------|
+| **Local Reference Variable** | `#myInput` | Access elements & components |
+| **Directive Export Variable** | `#myForm="ngForm"` | Reference directives (`exportAs`) |
+| **Implicit Variables** | `let item of items` | Auto-generated in `*ngFor`, `*ngIf` |
+| **Template Input Variables** | `<ng-template let-name>` | Used inside `ng-template` |
+
+
+[Back to top⤴️](#table-of-contents)
