@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MasterService {
-
-
+  private apiUrl = 'api/BankLoan'; // Example API URL
   constructor(private http: HttpClient) {
     this.http = http;
   }
@@ -16,8 +15,4 @@ export class MasterService {
   getPosts(): Observable<any> {
     return this.http.get(`${this.apiUrl}/GetAllUsers`);
   }
-
-  
-
- 
 }

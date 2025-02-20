@@ -10,6 +10,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Sr. No.</th>
                                     <th>User Id</th>
                                     <th>User Name</th>
                                     <th>Email Id</th>
@@ -17,16 +18,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @for (item of customers; track $index) {
                                 <tr>
-                                    <td>1</td>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Mary</td>
-                                    <td>Moe</td>
-                                </tr>
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.userId}}</td>
+                                    <td>{{item.userName}}</td>
+                                    <td>{{item.emailId}}</td>
+                                    <td>{{item.fullName}}</td>
+                                    <td><button class="btn btn-primary" (click)="onEdit(item)">Edit</button>
+                                        <button class="btn btn-secondary" (click)="onDelete(item.userId)">Delete</button>
+                                    </td>
+                                </tr>                              
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -40,37 +43,54 @@
                 New Customer
             </div>
             <div class="card-body">
-
+<form #customerForm="ngForm">
                 <div class="row">
                     <div class="col-6">
                         <label for="userName">User Name:</label>
-                        <input type="text" class="form-control" [(ngModel)]="customer.userId" placeholder="Enter User Name">
+                        <input type="text" #userName="ngModel" minlength="3" required class="form-control"   name="userName"[(ngModel)]="customer.userName" placeholder="Enter User Name">
+                        @if (
+                        userName.invalid && (userName.dirty || userName.touched)
+                        ) {
+                            <div class="text-danger">
+                                @if(userName?.errors?.['required']) {
+                                    <div>User Name is required.</div>
+                                }
+                                @if(userName?.errors?.['minlength']) {
+                                    <div>User Name must be at least 3 characters long.</div>
+                                }
+                                
+                            </div>
+                        }                       
                     </div>
                     <div class="col-6">
                         <label for="emailId">Email Id:</label>
-                        <input type="email" class="form-control"  [(ngModel)]="customer.emailId" placeholder="Enter Email Id">
+                        <input type="email" class="form-control"   name="emailId" [(ngModel)]="customer.emailId" placeholder="Enter Email Id">
 
                     </div>
                     <div class="col-6">
                         <label for="fullName">Full Name:</label>
-                        <input type="text" class="form-control" [(ngModel)]="customer.fullName" placeholder="Enter Full Name">
+                        <input type="text" class="form-control"   name="fullName"[(ngModel)]="customer.fullName" placeholder="Enter Full Name">
 
                     </div>
                     <div class="col-6">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" [(ngModel)]="customer.password" placeholder="Enter Password">
+                        <input type="password" class="form-control"   name="password"[(ngModel)]="customer.password" placeholder="Enter Password">
 
                     </div>
 
                 </div>
+               
                 <div class="row pt-2">
                     <div class="col-6 text-center">
-                        <button class="btn btn-secondary">Reset</button>
+                        <button class="btn btn-secondary" (click)="onReset()">Reset</button>
                     </div>
                     <div class="col-6 text-center">
-                        <button class="btn btn-success">Save</button>
+                        <button class="btn btn-success" [disabled]="!customerForm.valid" (click)="onSaveClick()">
+                            {{customer.userId? 'Update' : 'Save'}}                           
+                        </button>
                     </div>
                 </div>
-            </div>
+                </form>
+            </div>            
         </div>
     </div>
